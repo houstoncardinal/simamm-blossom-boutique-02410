@@ -11,12 +11,12 @@ const buttonVariants = cva(
       variant: {
         default: "bg-primary text-primary-foreground hover:bg-primary/90",
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        outline: "border-2 border-rose-gold/60 bg-white/95 hover:bg-rose-gold hover:text-white shadow-[0_4px_20px_rgba(216,164,143,0.3)] hover:shadow-[0_8px_30px_rgba(216,164,143,0.6)] font-semibold transition-all duration-300 hover:scale-105",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        hero: "bg-accent text-accent-foreground hover:bg-accent/90 shadow-elegant hover:shadow-glow font-semibold tracking-wide transition-all duration-300 hover:scale-105",
-        luxury: "bg-rose-gold text-accent-foreground hover:bg-rose-gold-light shadow-soft hover:shadow-elegant font-medium transition-all duration-300",
+        hero: "bg-gradient-to-r from-rose-gold via-blush-dark to-rose-gold text-white hover:from-blush-dark hover:via-rose-gold hover:to-blush-dark shadow-[0_8px_30px_rgba(216,164,143,0.5)] hover:shadow-[0_12px_40px_rgba(216,164,143,0.7)] font-bold tracking-wide transition-all duration-300 hover:scale-105 border-2 border-rose-gold/30",
+        luxury: "bg-white text-elegant-dark hover:bg-white/95 shadow-[0_8px_30px_rgba(0,0,0,0.15)] hover:shadow-[0_12px_40px_rgba(216,164,143,0.4)] font-bold transition-all duration-300 hover:scale-105 border-2 border-rose-gold/40 hover:border-rose-gold/60",
       },
       size: {
         default: "h-10 px-4 py-2",

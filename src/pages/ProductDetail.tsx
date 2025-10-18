@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { ChevronRight, Heart, ShoppingBag, Share2, Truck, Shield, RefreshCw } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import BackToTop from '@/components/BackToTop';
+import MobileToolbar from '@/components/MobileToolbar';
 import { getProductById, products } from '@/data/products';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -11,39 +11,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Separator } from '@/components/ui/separator';
 import { useCart } from '@/contexts/CartContext';
 import { toast } from 'sonner';
-import lawnPink from '@/assets/products/lawn-pink.jpg';
-import formalRed from '@/assets/products/formal-red.jpg';
-import partyGold from '@/assets/products/party-gold.jpg';
-import winterVelvet from '@/assets/products/winter-velvet.jpg';
-import bridalRed from '@/assets/products/bridal-red.jpg';
-import lawnMint from '@/assets/products/lawn-mint.jpg';
-import formalWhite from '@/assets/products/formal-white.jpg';
-import partyPink from '@/assets/products/party-pink.jpg';
-import lawnBlue from '@/assets/products/lawn-blue.jpg';
-import winterEmerald from '@/assets/products/winter-emerald.jpg';
-
-const productImages: Record<number, string> = {
-  1: lawnPink,
-  2: formalRed,
-  3: lawnMint,
-  4: winterVelvet,
-  5: formalWhite,
-  6: winterEmerald,
-  7: partyGold,
-  8: partyPink,
-  9: partyGold,
-  10: winterVelvet,
-  11: winterEmerald,
-  12: lawnBlue,
-  13: lawnMint,
-  14: bridalRed,
-  15: lawnPink,
-  16: formalWhite,
-  17: partyGold,
-  18: winterEmerald,
-  19: lawnBlue,
-  20: partyPink,
-};
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -123,49 +90,73 @@ const ProductDetail = () => {
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Images */}
-            <div className="space-y-4">
-              {/* Main Image */}
-              <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-elegant">
-                <img 
-                  src={productImages[product.id] || lawnPink} 
-                  alt={product.name}
-                  className="w-full h-full object-cover"
-                />
-                
-                {/* Badges */}
-                {(product.isSale || product.isNew) && (
-                  <div className="absolute top-6 right-6 flex flex-col gap-2">
-                    {product.isSale && (
-                      <Badge className="bg-accent text-accent-foreground shadow-glow text-lg py-2 px-4">
-                        {product.discount}% OFF
-                      </Badge>
-                    )}
-                    {product.isNew && (
-                      <Badge className="bg-rose-gold text-white text-lg py-2 px-4">NEW</Badge>
-                    )}
-                  </div>
-                )}
-              </div>
-
-              {/* Thumbnail Gallery */}
-              <div className="grid grid-cols-4 gap-4">
-                {[1, 2, 3].map((idx) => (
+            <div className="flex gap-4">
+              {/* Thumbnail Gallery - Desktop Vertical */}
+              <div className="hidden lg:flex flex-col gap-3 w-24">
+                {product.images.map((image, idx) => (
                   <button
                     key={idx}
                     onClick={() => setSelectedImage(idx)}
-                    className={`aspect-square rounded-xl overflow-hidden transition-all ${
+                    className={`aspect-square rounded-xl overflow-hidden transition-all flex-shrink-0 ${
                       selectedImage === idx
-                        ? 'ring-4 ring-accent shadow-glow'
-                        : 'opacity-60 hover:opacity-100'
+                        ? 'ring-4 ring-rose-gold shadow-glow'
+                        : 'opacity-60 hover:opacity-100 ring-2 ring-border'
                     }`}
                   >
                     <img 
-                      src={productImages[product.id] || lawnPink} 
-                      alt={`${product.name} view ${idx}`}
+                      src={image} 
+                      alt={`${product.name} view ${idx + 1}`}
                       className="w-full h-full object-cover"
                     />
                   </button>
                 ))}
+              </div>
+
+              {/* Main Image Container */}
+              <div className="flex-1 space-y-4">
+                {/* Main Image */}
+                <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-elegant">
+                  <img 
+                    src={product.images[selectedImage]} 
+                    alt={product.name}
+                    className="w-full h-full object-cover"
+                  />
+                  
+                  {/* Badges */}
+                  {(product.isSale || product.isNew) && (
+                    <div className="absolute top-6 right-6 flex flex-col gap-2">
+                      {product.isSale && (
+                        <Badge className="bg-rose-gold text-white shadow-glow text-lg py-2 px-4">
+                          {product.discount}% OFF
+                        </Badge>
+                      )}
+                      {product.isNew && (
+                        <Badge className="bg-elegant-dark text-white text-lg py-2 px-4">NEW</Badge>
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                {/* Thumbnail Gallery - Mobile Horizontal */}
+                <div className="lg:hidden grid grid-cols-4 gap-3">
+                  {product.images.map((image, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setSelectedImage(idx)}
+                      className={`aspect-square rounded-xl overflow-hidden transition-all ${
+                        selectedImage === idx
+                          ? 'ring-4 ring-rose-gold shadow-glow'
+                          : 'opacity-60 hover:opacity-100 ring-2 ring-border'
+                      }`}
+                    >
+                      <img 
+                        src={image} 
+                        alt={`${product.name} view ${idx + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -200,9 +191,9 @@ const ProductDetail = () => {
                   </Badge>
                 </div>
 
-                {/* Price */}
-                <div className="flex items-baseline gap-4">
-                  <span className="text-5xl font-heading font-bold text-accent">
+                {/* Price - BLACK TEXT */}
+                <div className="flex items-baseline gap-3">
+                  <span className="text-5xl font-heading font-bold text-elegant-dark">
                     ${product.price}
                   </span>
                   {product.originalPrice > product.price && (
@@ -453,7 +444,7 @@ const ProductDetail = () => {
                     <div className="bg-card rounded-2xl overflow-hidden shadow-soft hover:shadow-elegant transition-all duration-300 hover:scale-105">
                       <div className="relative aspect-[3/4] overflow-hidden">
                         <img 
-                          src={productImages[relatedProduct.id] || lawnPink} 
+                          src={relatedProduct.images[0]} 
                           alt={relatedProduct.name}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                         />
@@ -479,7 +470,7 @@ const ProductDetail = () => {
       </section>
 
       <Footer />
-      <BackToTop />
+      <MobileToolbar />
     </div>
   );
 };

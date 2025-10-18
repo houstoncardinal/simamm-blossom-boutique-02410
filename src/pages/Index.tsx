@@ -7,7 +7,8 @@ import SpecialOffers from '@/components/SpecialOffers';
 import About from '@/components/About';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
-import BackToTop from '@/components/BackToTop';
+import FacebookLiveSection from '@/components/FacebookLiveSection';
+import MobileToolbar from '@/components/MobileToolbar';
 
 const Index = () => {
   return (
@@ -16,14 +17,15 @@ const Index = () => {
       <main>
         <Hero />
         <FeaturedCategories />
-        <EventSection />
         <ProductShowcase />
+        <FacebookLiveSection />
+        <EventSection />
         <SpecialOffers />
         <About />
         <Contact />
       </main>
       <Footer />
-      <BackToTop />
+      <MobileToolbar />
     </div>
   );
 };

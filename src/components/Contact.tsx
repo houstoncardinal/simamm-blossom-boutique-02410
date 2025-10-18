@@ -53,23 +53,23 @@ const Contact = () => {
                   <div className="inline-block p-4 bg-blush-light rounded-full">
                     <info.icon className="h-6 w-6 text-accent" />
                   </div>
-                  <h3 className="font-heading font-bold text-elegant-dark text-sm">
-                    {info.title}
-                  </h3>
-                  {info.link ? (
-                    <a 
-                      href={info.link}
-                      target={info.link.startsWith('http') ? '_blank' : undefined}
-                      rel={info.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className="text-sm text-accent hover:text-accent/80 transition-colors font-body block elegant-link"
-                    >
-                      {info.content}
-                    </a>
-                  ) : (
-                    <p className="text-sm text-muted-foreground font-body">
-                      {info.content}
-                    </p>
-                  )}
+              <h3 className="font-heading font-bold text-elegant-dark text-sm">
+                {info.title}
+              </h3>
+              {info.link ? (
+                <a 
+                  href={info.link}
+                  target={info.link.startsWith('http') ? '_blank' : undefined}
+                  rel={info.link.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  className="text-sm text-elegant-dark hover:text-rose-gold transition-colors font-body block font-semibold"
+                >
+                  {info.content}
+                </a>
+              ) : (
+                <p className="text-sm text-elegant-dark font-body font-semibold">
+                  {info.content}
+                </p>
+              )}
                 </CardContent>
               </Card>
             ))}
@@ -94,11 +94,11 @@ const Contact = () => {
               </div>
 
               {/* CTA Section */}
-              <CardContent className="p-8 bg-gradient-to-br from-card to-blush-light/20 flex flex-col justify-center">
+              <CardContent className="p-8 bg-gradient-to-br from-white to-blush-light/30 flex flex-col justify-center">
                 <h3 className="text-2xl font-heading font-bold text-elegant-dark mb-4">
                   Don't Miss Out!
                 </h3>
-                <p className="text-muted-foreground mb-6 font-body">
+                <p className="text-elegant-dark mb-6 font-body leading-relaxed">
                   Join us this weekend for exclusive deals, designer collections, and a complimentary gift with every $50 purchase. Connect with us on Facebook Live to shop from anywhere!
                 </p>
                 

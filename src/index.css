@@ -29,9 +29,9 @@ All colors MUST be HSL.
     --muted: 35 25% 88%;
     --muted-foreground: 0 0% 40%;
 
-    /* Rose Gold Accent */
-    --accent: 20 38% 61%;
-    --accent-foreground: 0 0% 100%;
+    /* Soft Pink Accent (Primary) */
+    --accent: 8 63% 90%;
+    --accent-foreground: 0 0% 13%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
@@ -47,6 +47,7 @@ All colors MUST be HSL.
     --rose-gold-light: 20 48% 75%;
     --blush: 8 63% 90%;
     --blush-light: 8 70% 95%;
+    --blush-dark: 8 55% 75%;
     --elegant-dark: 0 0% 13%;
 
     /* Gradients */
@@ -139,6 +140,25 @@ All colors MUST be HSL.
     50% { transform: translateY(-5px); }
   }
 
+  .animate-marquee {
+    animation: marquee 20s linear infinite;
+  }
+
+  @media (max-width: 768px) {
+    .animate-marquee {
+      animation: marquee 12s linear infinite;
+    }
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-33.333%);
+    }
+  }
+
   /* Cart & Checkout Animations */
   @keyframes confetti-fall {
     0% {
@@ -174,6 +194,13 @@ All colors MUST be HSL.
     100% {
       transform: translateX(0);
       opacity: 1;
+    }
+  }
+
+  /* Mobile toolbar spacing */
+  @media (max-width: 768px) {
+    main, .min-h-screen > section:last-of-type {
+      padding-bottom: 6rem;
     }
   }
 }

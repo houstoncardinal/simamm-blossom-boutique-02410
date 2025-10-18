@@ -40,9 +40,7 @@ const Navbar = () => {
   const featuredProducts = products.filter(p => p.isNew || p.popularity > 95).slice(0, 3);
 
   return (
-    <nav className={`sticky top-0 z-50 border-b border-border shadow-soft transition-all duration-500 ${
-      scrolled ? 'bg-blush/95 backdrop-blur-md' : 'bg-background/95 backdrop-blur-md'
-    }`}>
+    <nav className="sticky top-0 z-50 bg-white border-b border-border shadow-soft transition-all duration-300">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
@@ -56,8 +54,9 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-6">
-            <Link to="/" className="text-sm font-medium text-foreground hover:text-accent transition-colors elegant-link">
-              Home
+            <Link to="/" className="relative text-sm font-medium text-elegant-dark hover:text-rose-gold transition-all duration-300 group py-2">
+              <span className="relative z-10">Home</span>
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-rose-gold to-blush-dark group-hover:w-full transition-all duration-300"></span>
             </Link>
 
             {/* Shop Mega Menu */}
@@ -69,101 +68,135 @@ const Navbar = () => {
                       Shop
                     </NavigationMenuTrigger>
                   </Link>
-                  <NavigationMenuContent>
-                    <div className="grid gap-6 p-8 w-[700px] lg:w-[900px] lg:grid-cols-[1fr_1fr_300px] bg-gradient-to-br from-background via-blush/5 to-rose-gold/5">
-                      {/* Categories Section */}
-                      <div className="space-y-4">
-                        <div className="flex items-center gap-2 mb-4">
-                          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
-                          <h4 className="font-heading font-bold text-elegant-dark text-base">Shop by Category</h4>
-                          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
-                        </div>
-                        <div className="space-y-2">
-                          {categories.slice(0, 5).map((category) => (
+                  <NavigationMenuContent className="left-1/2 -translate-x-1/2">
+                    <div className="w-[95vw] max-w-[1000px] p-6 bg-gradient-to-br from-blush/40 via-blush-light/50 to-background">
+                      <div className="grid grid-cols-4 gap-4">
+                        {/* Categories Column */}
+                        <div className="space-y-3">
+                          <h4 className="font-heading font-bold text-elegant-dark text-sm mb-3 px-3">
+                            Collections
+                          </h4>
+                          {categories.map((category) => (
                             <NavigationMenuLink key={category.name} asChild>
                               <Link
                                 to={category.href}
-                                className="group block select-none rounded-xl p-4 leading-none no-underline outline-none transition-all hover:bg-gradient-to-r hover:from-accent/10 hover:to-rose-gold/10 hover:shadow-soft border border-transparent hover:border-accent/20"
+                                className="group flex items-center justify-between rounded-lg p-3 hover:bg-blush/60 transition-all border border-transparent hover:border-blush-dark/30 hover:shadow-sm"
                               >
-                                <div className="flex items-center justify-between">
-                                  <div className="flex items-center gap-3">
-                                    <div className="h-2 w-2 rounded-full bg-accent group-hover:animate-pulse" />
-                                    <div className="text-sm font-semibold leading-none text-foreground group-hover:text-accent transition-colors">
-                                      {category.name}
-                                    </div>
-                                  </div>
-                                  <Badge variant="secondary" className="text-xs bg-rose-gold/20 text-accent border-0">
-                                    {category.count}
-                                  </Badge>
+                                <div className="flex items-center gap-2">
+                                  <div className="h-1.5 w-1.5 rounded-full bg-rose-gold group-hover:scale-125 transition-transform" />
+                                  <span className="text-sm font-medium text-foreground group-hover:text-elegant-dark">
+                                    {category.name}
+                                  </span>
                                 </div>
+                                <Badge className="text-xs h-5 bg-blush-dark/40 text-elegant-dark border-0 group-hover:bg-blush-dark/60">
+                                  {category.count}
+                                </Badge>
                               </Link>
                             </NavigationMenuLink>
                           ))}
                           <NavigationMenuLink asChild>
                             <Link
                               to="/shop"
-                              className="block select-none rounded-xl p-4 leading-none no-underline outline-none transition-all bg-gradient-to-r from-accent to-rose-gold text-white hover:shadow-elegant mt-4"
+                              className="flex items-center justify-center gap-2 rounded-lg p-3 bg-gradient-to-r from-blush-dark to-rose-gold text-white hover:shadow-md transition-all mt-2 font-semibold text-sm"
                             >
-                              <div className="text-sm font-bold text-center">View All Collections →</div>
+                              View All →
                             </Link>
                           </NavigationMenuLink>
                         </div>
-                      </div>
-                      
-                      {/* Designers Section */}
-                      <div className="space-y-4">
-                        <div className="flex items-center gap-2 mb-4">
-                          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-rose-gold/30 to-transparent" />
-                          <h4 className="font-heading font-bold text-elegant-dark text-base">Top Designers</h4>
-                          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-rose-gold/30 to-transparent" />
-                        </div>
-                        <div className="grid grid-cols-2 gap-2">
+
+                        {/* Designers Column */}
+                        <div className="space-y-3">
+                          <h4 className="font-heading font-bold text-elegant-dark text-sm mb-3 px-3">
+                            Designers
+                          </h4>
                           {['Sana Safinaz', 'Maria B', 'Elan', 'Ethnc', 'Lulusar', 'HR'].map((designer) => (
                             <Link
                               key={designer}
                               to={`/shop?designer=${designer}`}
-                              className="group flex items-center gap-2 rounded-lg p-3 text-xs font-medium transition-all hover:bg-rose-gold/10 hover:shadow-soft border border-transparent hover:border-rose-gold/20"
+                              className="group flex items-center gap-2 rounded-lg p-3 hover:bg-blush/60 transition-all border border-transparent hover:border-blush-dark/30"
                             >
-                              <span className="text-accent group-hover:scale-110 transition-transform">✦</span>
-                              <span className="group-hover:text-accent transition-colors">{designer}</span>
+                              <span className="text-rose-gold group-hover:scale-110 transition-transform text-xs">✦</span>
+                              <span className="text-sm font-medium group-hover:text-elegant-dark transition-colors">{designer}</span>
                             </Link>
                           ))}
                         </div>
-                      </div>
 
-                      {/* Featured Products */}
-                      <div className="space-y-4 border-l border-accent/10 pl-6">
-                        <div className="flex items-center gap-2 mb-4">
-                          <h4 className="font-heading font-bold text-elegant-dark text-sm">✨ Featured</h4>
+                        {/* Featured Products - 2 Columns */}
+                        <div className="col-span-2 grid grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <h4 className="font-heading font-bold text-elegant-dark text-sm mb-2 px-2">
+                              ✨ New Arrivals
+                            </h4>
+                            {featuredProducts.slice(0, 2).map((product) => (
+                              <NavigationMenuLink key={product.id} asChild>
+                                <Link
+                                  to={`/product/${product.id}`}
+                                  className="group block rounded-lg overflow-hidden hover:shadow-md transition-all bg-white/50 hover:bg-white"
+                                >
+                                  <div className="aspect-[4/3] overflow-hidden bg-muted">
+                                    <img 
+                                      src={product.images[0]} 
+                                      alt={product.name}
+                                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    />
+                                  </div>
+                                  <div className="p-3 space-y-1">
+                                    <p className="text-xs font-semibold leading-tight line-clamp-1 group-hover:text-elegant-dark">
+                                      {product.name}
+                                    </p>
+                                    <p className="text-xs text-muted-foreground">{product.designer}</p>
+                                    <div className="flex items-center justify-between">
+                                      <span className="text-sm font-bold text-rose-gold">${product.price}</span>
+                                      {product.isNew && (
+                                        <Badge className="text-xs h-4 bg-blush-dark text-white border-0 px-2">
+                                          NEW
+                                        </Badge>
+                                      )}
+                                    </div>
+                                  </div>
+                                </Link>
+                              </NavigationMenuLink>
+                            ))}
+                          </div>
+                          <div className="space-y-2">
+                            <h4 className="font-heading font-bold text-elegant-dark text-sm mb-2 px-2">
+                              🔥 Best Sellers
+                            </h4>
+                            {products
+                              .filter(p => p.popularity >= 90 && !p.isNew)
+                              .slice(0, 2)
+                              .map((product) => (
+                                <NavigationMenuLink key={product.id} asChild>
+                                  <Link
+                                    to={`/product/${product.id}`}
+                                    className="group block rounded-lg overflow-hidden hover:shadow-md transition-all bg-white/50 hover:bg-white"
+                                  >
+                                    <div className="aspect-[4/3] overflow-hidden bg-muted">
+                                      <img 
+                                        src={product.images[0]} 
+                                        alt={product.name}
+                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                      />
+                                    </div>
+                                    <div className="p-3 space-y-1">
+                                      <p className="text-xs font-semibold leading-tight line-clamp-1 group-hover:text-elegant-dark">
+                                        {product.name}
+                                      </p>
+                                      <p className="text-xs text-muted-foreground">{product.designer}</p>
+                                      <div className="flex items-center justify-between">
+                                        <span className="text-sm font-bold text-rose-gold">${product.price}</span>
+                                        {product.isSale && (
+                                          <Badge className="text-xs h-4 bg-rose-gold text-white border-0 px-2">
+                                            SALE
+                                          </Badge>
+                                        )}
+                                      </div>
+                                    </div>
+                                  </Link>
+                                </NavigationMenuLink>
+                              ))}
+                          </div>
                         </div>
-                        {featuredProducts.map((product) => (
-                          <NavigationMenuLink key={product.id} asChild>
-                            <Link
-                              to={`/product/${product.id}`}
-                              className="group block select-none space-y-2 rounded-xl p-3 leading-none no-underline outline-none transition-all hover:bg-gradient-to-br hover:from-blush/20 hover:to-rose-gold/10 hover:shadow-soft"
-                            >
-                              <div className="aspect-square rounded-lg overflow-hidden bg-muted">
-                                <img 
-                                  src={product.images[0]} 
-                                  alt={product.name}
-                                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                />
-                              </div>
-                              <div className="text-xs font-semibold leading-tight line-clamp-2 group-hover:text-accent transition-colors">
-                                {product.name}
-                              </div>
-                              <p className="text-xs text-muted-foreground line-clamp-1">{product.designer}</p>
-                              <div className="flex items-center gap-2">
-                                <span className="text-sm font-bold text-accent">${product.price}</span>
-                                {product.isNew && (
-                                  <Badge className="text-xs h-5 bg-gradient-to-r from-accent to-rose-gold text-white border-0">
-                                    NEW
-                                  </Badge>
-                                )}
-                              </div>
-                            </Link>
-                          </NavigationMenuLink>
-                        ))}
                       </div>
                     </div>
                   </NavigationMenuContent>
@@ -171,14 +204,17 @@ const Navbar = () => {
               </NavigationMenuList>
             </NavigationMenu>
 
-            <Link to="/about" className="text-sm font-medium text-foreground hover:text-accent transition-colors elegant-link">
-              About
+            <Link to="/about" className="relative text-sm font-medium text-elegant-dark hover:text-rose-gold transition-all duration-300 group py-2">
+              <span className="relative z-10">About</span>
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-rose-gold to-blush-dark group-hover:w-full transition-all duration-300"></span>
             </Link>
-            <a href="/#event" className="text-sm font-medium text-foreground hover:text-accent transition-colors elegant-link">
-              Event Sale
+            <a href="/#event" className="relative text-sm font-medium text-elegant-dark hover:text-rose-gold transition-all duration-300 group py-2">
+              <span className="relative z-10">Event Sale</span>
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-rose-gold to-blush-dark group-hover:w-full transition-all duration-300"></span>
             </a>
-            <a href="/#contact" className="text-sm font-medium text-foreground hover:text-accent transition-colors elegant-link">
-              Contact
+            <a href="/#contact" className="relative text-sm font-medium text-elegant-dark hover:text-rose-gold transition-all duration-300 group py-2">
+              <span className="relative z-10">Contact</span>
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-rose-gold to-blush-dark group-hover:w-full transition-all duration-300"></span>
             </a>
           </div>
 
@@ -198,13 +234,13 @@ const Navbar = () => {
             </Button>
             <button 
               onClick={() => setIsCartOpen(true)}
-              className="relative p-2 hover:scale-110 transition-transform group"
+              className="relative p-2 hover:scale-110 transition-all duration-300 group"
             >
-              <ShoppingCart className="h-5 w-5 text-accent group-hover:rotate-12 transition-transform" />
+              <ShoppingCart className="h-6 w-6 text-elegant-dark group-hover:text-rose-gold transition-all duration-300" />
               {itemCount > 0 && (
-                <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center bg-accent text-accent-foreground text-xs animate-bounce">
+                <span className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center bg-rose-gold text-white text-xs font-bold rounded-full border-2 border-white shadow-lg">
                   {itemCount}
-                </Badge>
+                </span>
               )}
             </button>
           </div>
@@ -215,11 +251,11 @@ const Navbar = () => {
               onClick={() => setIsCartOpen(true)}
               className="relative p-2"
             >
-              <ShoppingCart className="h-5 w-5 text-accent" />
+              <ShoppingCart className="h-6 w-6 text-elegant-dark" />
               {itemCount > 0 && (
-                <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center bg-accent text-accent-foreground text-xs">
+                <span className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center bg-rose-gold text-white text-xs font-bold rounded-full border-2 border-white shadow-lg">
                   {itemCount}
-                </Badge>
+                </span>
               )}
             </button>
             <button
@@ -233,55 +269,150 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="lg:hidden py-4 animate-fade-in border-t border-border">
-            <div className="flex flex-col space-y-4">
+          <div className="lg:hidden py-6 animate-fade-in border-t border-border max-h-[70vh] overflow-y-auto">
+            <div className="flex flex-col space-y-2">
               <Link
                 to="/"
                 onClick={() => setIsOpen(false)}
-                className="text-sm font-medium text-foreground hover:text-accent transition-colors py-2"
+                className="text-sm font-medium text-foreground hover:text-accent transition-colors py-3 px-4 rounded-lg hover:bg-blush/30"
               >
                 Home
               </Link>
-              <Link
-                to="/shop"
-                onClick={() => setIsOpen(false)}
-                className="text-sm font-medium text-foreground hover:text-accent transition-colors py-2"
-              >
-                Shop
-              </Link>
+              
+              {/* Mobile Shop Accordion */}
+              <details className="group">
+                <summary className="text-sm font-medium text-foreground hover:text-accent transition-colors py-3 px-4 rounded-lg hover:bg-blush/30 cursor-pointer flex items-center justify-between">
+                  <span>Shop</span>
+                  <ChevronDown className="h-4 w-4 transition-transform group-open:rotate-180" />
+                </summary>
+                <div className="mt-2 ml-4 space-y-1 animate-fade-in">
+                  {/* Categories */}
+                  <div className="py-2">
+                    <p className="text-xs font-bold text-elegant-dark uppercase tracking-wider px-4 mb-2">
+                      Collections
+                    </p>
+                    {categories.map((category) => (
+                      <Link
+                        key={category.name}
+                        to={category.href}
+                        onClick={() => setIsOpen(false)}
+                        className="flex items-center justify-between py-2 px-4 rounded-lg hover:bg-blush/40 transition-colors group/item"
+                      >
+                        <span className="text-sm text-foreground group-hover/item:text-elegant-dark">
+                          {category.name}
+                        </span>
+                        <Badge className="text-xs bg-blush-dark/40 text-elegant-dark border-0">
+                          {category.count}
+                        </Badge>
+                      </Link>
+                    ))}
+                  </div>
+
+                  {/* Designers */}
+                  <div className="py-2 border-t border-border">
+                    <p className="text-xs font-bold text-elegant-dark uppercase tracking-wider px-4 mb-2">
+                      Designers
+                    </p>
+                    {['Sana Safinaz', 'Maria B', 'Elan', 'Ethnc', 'Lulusar', 'HR'].map((designer) => (
+                      <Link
+                        key={designer}
+                        to={`/shop?designer=${designer}`}
+                        onClick={() => setIsOpen(false)}
+                        className="flex items-center gap-2 py-2 px-4 rounded-lg hover:bg-blush/40 transition-colors"
+                      >
+                        <span className="text-rose-gold text-xs">✦</span>
+                        <span className="text-sm text-foreground">{designer}</span>
+                      </Link>
+                    ))}
+                  </div>
+
+                  {/* Featured Products Mobile */}
+                  <div className="py-2 border-t border-border">
+                    <p className="text-xs font-bold text-elegant-dark uppercase tracking-wider px-4 mb-3">
+                      ✨ Featured
+                    </p>
+                    <div className="space-y-3 px-4">
+                      {featuredProducts.slice(0, 2).map((product) => (
+                        <Link
+                          key={product.id}
+                          to={`/product/${product.id}`}
+                          onClick={() => setIsOpen(false)}
+                          className="flex gap-3 p-2 rounded-lg hover:bg-blush/40 transition-all"
+                        >
+                          <div className="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-muted">
+                            <img 
+                              src={product.images[0]} 
+                              alt={product.name}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-semibold text-elegant-dark line-clamp-2 mb-1">
+                              {product.name}
+                            </p>
+                            <p className="text-xs text-muted-foreground mb-1">{product.designer}</p>
+                            <div className="flex items-center gap-2">
+                              <span className="text-sm font-bold text-rose-gold">${product.price}</span>
+                              {product.isNew && (
+                                <Badge className="text-xs h-4 bg-blush-dark text-white border-0 px-2">NEW</Badge>
+                              )}
+                            </div>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* View All Button */}
+                  <div className="px-4 pt-2">
+                    <Link
+                      to="/shop"
+                      onClick={() => setIsOpen(false)}
+                      className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-gradient-to-r from-blush-dark to-rose-gold text-white rounded-lg font-semibold text-sm hover:shadow-md transition-all"
+                    >
+                      View All Products →
+                    </Link>
+                  </div>
+                </div>
+              </details>
+
               <Link
                 to="/about"
                 onClick={() => setIsOpen(false)}
-                className="text-sm font-medium text-foreground hover:text-accent transition-colors py-2"
+                className="text-sm font-medium text-foreground hover:text-accent transition-colors py-3 px-4 rounded-lg hover:bg-blush/30"
               >
                 About
               </Link>
               <a
                 href="/#event"
                 onClick={() => setIsOpen(false)}
-                className="text-sm font-medium text-foreground hover:text-accent transition-colors py-2"
+                className="text-sm font-medium text-foreground hover:text-accent transition-colors py-3 px-4 rounded-lg hover:bg-blush/30"
               >
                 Event Sale
               </a>
               <a
                 href="/#contact"
                 onClick={() => setIsOpen(false)}
-                className="text-sm font-medium text-foreground hover:text-accent transition-colors py-2"
+                className="text-sm font-medium text-foreground hover:text-accent transition-colors py-3 px-4 rounded-lg hover:bg-blush/30"
               >
                 Contact
               </a>
-              <Button variant="ghost" size="sm" asChild className="justify-start">
-                <a href="tel:630-212-8172">
-                  <Phone className="h-4 w-4" />
-                  Call Us
-                </a>
-              </Button>
-              <Button variant="luxury" size="sm" asChild className="justify-start">
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-                  <Facebook className="h-4 w-4" />
-                  Facebook Live
-                </a>
-              </Button>
+              
+              {/* Mobile CTAs */}
+              <div className="pt-4 space-y-2 border-t border-border">
+                <Button variant="ghost" size="sm" asChild className="w-full justify-start">
+                  <a href="tel:630-212-8172">
+                    <Phone className="h-4 w-4" />
+                    Call Us
+                  </a>
+                </Button>
+                <Button variant="luxury" size="sm" asChild className="w-full justify-start">
+                  <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+                    <Facebook className="h-4 w-4" />
+                    Facebook Live
+                  </a>
+                </Button>
+              </div>
             </div>
           </div>
         )}

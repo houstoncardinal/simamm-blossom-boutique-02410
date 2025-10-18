@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import BackToTop from '@/components/BackToTop';
+import MobileToolbar from '@/components/MobileToolbar';
 import { Sparkles, Heart, Award, Users } from 'lucide-react';
 
 const About = () => {
@@ -207,7 +207,7 @@ const About = () => {
       </section>
 
       <Footer />
-      <BackToTop />
+      <MobileToolbar />
     </div>
   );
 };

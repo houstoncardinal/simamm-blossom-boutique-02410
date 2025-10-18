@@ -1,53 +1,47 @@
 import { Link } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import partyBg from '@/assets/categories/party-bg.jpg';
-import formalBg from '@/assets/categories/formal-bg.jpg';
-import lawnBg from '@/assets/categories/lawn-bg.jpg';
-import winterBg from '@/assets/categories/winter-bg.jpg';
-import bridalBg from '@/assets/categories/bridal-bg.jpg';
-
 const categories = [
   {
     id: 1,
     name: 'Party Wear',
     description: 'Glamorous outfits for special occasions',
-    image: partyBg,
+    image: '/saari/53.jpg',
     href: '/shop?category=Party Wear',
   },
   {
     id: 2,
     name: 'Formal Wear',
     description: 'Elegant suits and formal attire',
-    image: formalBg,
+    image: '/saari/55.jpg',
     href: '/shop?category=Formal',
   },
   {
     id: 3,
     name: 'Lawn / Casual',
     description: 'Comfortable everyday wear',
-    image: lawnBg,
+    image: '/saari/66.jpg',
     href: '/shop?category=Lawn',
   },
   {
     id: 4,
     name: 'Winter Collection',
     description: 'Luxurious velvet and pashmina',
-    image: winterBg,
+    image: '/saari/77.jpg',
     href: '/shop?category=Winter',
   },
   {
     id: 5,
     name: 'Bridal',
     description: 'Exquisite bridal couture',
-    image: bridalBg,
+    image: '/saari/99.jpg',
     href: '/shop?category=Bridal',
   },
 ];
 
 const FeaturedCategories = () => {
   return (
-    <section className="py-20 bg-gradient-to-b from-background to-blush-light/30">
+    <section className="pt-24 md:pt-28 pb-20 bg-gradient-to-b from-background to-blush-light/30">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-heading font-bold text-elegant-dark mb-4">

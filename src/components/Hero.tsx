@@ -1,16 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Sparkles, Calendar, MapPin, Gift } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Sparkles, ShoppingBag, Heart, Star, TrendingUp, Award, Shield } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { getFeaturedProducts } from '@/data/products';
+import { useCart } from '@/contexts/CartContext';
+import { toast } from 'sonner';
 import heroBackground from '@/assets/hero-floral-bg.jpg';
 
 const FloatingPetals = () => {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {[...Array(20)].map((_, i) => (
+      {[...Array(15)].map((_, i) => (
         <div
           key={i}
-          className="absolute text-2xl animate-float opacity-60"
+          className="absolute text-2xl animate-float opacity-40"
           style={{
             left: `${Math.random() * 100}%`,
             top: `-10%`,
@@ -26,183 +30,221 @@ const FloatingPetals = () => {
 };
 
 const Hero = () => {
-  const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
-
-  useEffect(() => {
-    const eventDate = new Date('2025-10-18T13:00:00').getTime();
-
-    const timer = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = eventDate - now;
-
-      if (distance < 0) {
-        clearInterval(timer);
-        return;
-      }
-
-      setTimeLeft({
-        days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-        minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
-        seconds: Math.floor((distance % (1000 * 60)) / 1000),
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
+  const featuredProducts = getFeaturedProducts().slice(0, 2);
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image with Overlay */}
+    <section id="home" className="relative min-h-screen flex items-center justify-center py-20">
+      {/* Background with enhanced pink/white overlay */}
       <div 
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: `url(${heroBackground})` }}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-blush/90 via-background/85 to-rose-gold/20" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(216,164,143,0.1),transparent)]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-white/95 via-blush/60 to-white/90" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(248,216,212,0.4),transparent)]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-blush-light/30 to-transparent" />
       </div>
       
       <FloatingPetals />
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 py-12 lg:py-20">
+      <div className="relative z-10 container mx-auto px-4 pb-16">
         <div className="grid lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
-          {/* Left Column - Main Content */}
-          <div className="space-y-8 animate-fade-in text-center lg:text-left">
+          {/* Left Column - Store Branding & CTA */}
+          <div className="space-y-8 animate-fade-in">
             {/* Premium Badge */}
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-accent/10 to-rose-gold/10 border border-accent/20 rounded-full px-6 py-3 backdrop-blur-sm">
-              <Sparkles className="h-4 w-4 text-accent" />
-              <span className="text-sm font-semibold text-accent tracking-wide">LUXURY PAKISTANI DESIGNER WEAR</span>
+            <div className="inline-flex items-center gap-2 bg-white/95 backdrop-blur-md border-2 border-rose-gold rounded-full px-6 py-3 shadow-lg">
+              <Award className="h-4 w-4 text-rose-gold" />
+              <span className="text-sm font-bold text-elegant-dark tracking-wide">AWARD-WINNING DESIGNER COLLECTIONS</span>
             </div>
 
             {/* Main Heading */}
-            <div className="space-y-4">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-elegant-dark leading-tight">
-                Grand Event
-                <span className="block bg-gradient-to-r from-accent via-rose-gold to-accent bg-clip-text text-transparent">
-                  Sale 2025
-                </span>
-              </h1>
-              <div className="flex items-center justify-center lg:justify-start gap-3">
-                <div className="h-px w-12 bg-gradient-to-r from-transparent to-accent" />
-                <Sparkles className="h-6 w-6 text-accent animate-pulse" />
-                <div className="h-px w-12 bg-gradient-to-l from-transparent to-accent" />
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold leading-tight text-elegant-dark">
+                  <span className="drop-shadow-[0_4px_16px_rgba(0,0,0,0.15)]">
+                    SIMAMM
+                  </span>
+                  <span className="ml-3 md:ml-4 drop-shadow-[0_4px_16px_rgba(0,0,0,0.15)]">
+                    Boutique
+                  </span>
+                </h1>
+                <p className="text-lg md:text-xl font-body text-elegant-dark/60 font-medium">
+                  Where Heritage Meets Haute Couture
+                </p>
+              </div>
+              
+              <div className="flex items-center gap-4">
+                <div className="h-px flex-1 bg-gradient-to-r from-rose-gold/50 to-transparent" />
+                <Sparkles className="h-6 w-6 text-rose-gold" />
+                <div className="h-px flex-1 bg-gradient-to-l from-rose-gold/50 to-transparent" />
               </div>
             </div>
 
-            <p className="text-xl md:text-2xl font-body text-elegant-dark/80 max-w-xl mx-auto lg:mx-0">
-              Experience luxury at unbeatable prices. Exclusive collections, limited time only.
+            <p className="text-xl md:text-2xl font-body text-elegant-dark leading-relaxed max-w-xl">
+              Premium Pakistani fashion curated by <span className="font-bold text-rose-gold">Sobia Anis Allahrakha</span>. Featuring exclusive designer collections from Sana Safinaz, Maria B, Elan, and more. Authentic lawn, formal, and bridal pieces delivered to your door in Texas.
             </p>
 
-            {/* Event Info Cards */}
-            <div className="grid sm:grid-cols-2 gap-4 max-w-xl mx-auto lg:mx-0">
-              <div className="bg-card/80 backdrop-blur-sm rounded-xl p-4 shadow-soft border border-accent/10 hover:border-accent/30 transition-all hover:shadow-elegant group">
+            {/* Store Features */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-5 shadow-elegant border border-rose-gold/20 hover:border-rose-gold/40 transition-all group">
                 <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-accent/20 to-rose-gold/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Calendar className="h-5 w-5 text-accent" />
+                  <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-rose-gold/20 to-rose-gold/40 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Star className="h-6 w-6 text-rose-gold" />
                   </div>
-                  <div className="text-left">
-                    <p className="text-xs text-muted-foreground font-semibold uppercase">Event Date</p>
-                    <p className="text-sm font-bold text-foreground">Oct 18-19, 2025</p>
+                  <div>
+                    <p className="text-2xl font-heading font-bold text-elegant-dark">30+</p>
+                    <p className="text-xs text-muted-foreground font-semibold">Designer Pieces</p>
                   </div>
                 </div>
               </div>
-              <div className="bg-card/80 backdrop-blur-sm rounded-xl p-4 shadow-soft border border-accent/10 hover:border-accent/30 transition-all hover:shadow-elegant group">
+              <div className="bg-gradient-to-br from-rose-gold/10 to-blush-dark/20 backdrop-blur-sm rounded-2xl p-5 shadow-elegant border border-rose-gold/30 hover:border-rose-gold/50 transition-all group">
                 <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-accent/20 to-rose-gold/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <MapPin className="h-5 w-5 text-accent" />
+                  <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-rose-gold/30 to-rose-gold/50 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <TrendingUp className="h-6 w-6 text-elegant-dark" />
                   </div>
-                  <div className="text-left">
-                    <p className="text-xs text-muted-foreground font-semibold uppercase">Location</p>
-                    <p className="text-sm font-bold text-foreground">Murphy, Texas</p>
+                  <div>
+                    <p className="text-2xl font-heading font-bold text-elegant-dark">25%</p>
+                    <p className="text-xs text-elegant-dark/70 font-semibold">Avg. Savings</p>
                   </div>
                 </div>
-              </div>
-            </div>
-
-            {/* Gift Promo */}
-            <div className="bg-gradient-to-r from-accent/10 via-rose-gold/10 to-accent/10 border border-accent/20 rounded-2xl p-4 backdrop-blur-sm">
-              <div className="flex items-center justify-center lg:justify-start gap-3">
-                <Gift className="h-6 w-6 text-accent animate-bounce" />
-                <p className="text-sm font-semibold text-foreground">
-                  Free gift with every <span className="text-accent">$50</span> purchase
-                </p>
               </div>
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
-              <Button variant="hero" size="lg" asChild className="group relative overflow-hidden w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <Button variant="hero" size="lg" asChild className="group relative overflow-hidden shadow-xl hover:shadow-2xl">
                 <Link to="/shop">
-                  <span className="relative z-10 flex items-center gap-2">
-                    Shop Collection
-                    <Sparkles className="h-4 w-4 group-hover:rotate-12 transition-transform" />
+                  <span className="relative z-10 flex items-center gap-2 text-base">
+                    Explore Collection
+                    <Sparkles className="h-5 w-5 group-hover:rotate-12 transition-transform" />
                   </span>
-                  <span className="absolute inset-0 bg-gradient-to-r from-rose-gold to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </Link>
               </Button>
-              <Button variant="outline" size="lg" asChild className="hover:bg-accent/10 hover:border-accent transition-all group w-full sm:w-auto border-accent/30">
-                <a href="#event" className="flex items-center gap-2">
-                  Event Details
-                  <Calendar className="h-4 w-4 group-hover:scale-110 transition-transform" />
+              <Button variant="outline" size="lg" asChild className="bg-white/80 hover:bg-white border-2 border-elegant-dark hover:border-rose-gold transition-all shadow-lg text-elegant-dark font-semibold">
+                <a href="#event">
+                  View Event Sale
                 </a>
               </Button>
             </div>
           </div>
 
-          {/* Right Column - Countdown Timer */}
-          <div className="space-y-6 animate-fade-in lg:scale-110">
-            <div className="bg-card/90 backdrop-blur-md rounded-3xl p-8 lg:p-10 shadow-elegant border border-accent/20">
-              <div className="text-center space-y-6">
-                <div className="inline-flex items-center justify-center gap-2 mb-4">
-                  <div className="h-px w-8 bg-gradient-to-r from-transparent to-accent" />
-                  <Sparkles className="h-5 w-5 text-accent animate-pulse" />
-                  <p className="text-sm uppercase tracking-widest text-accent font-bold font-body">
-                    Event Starts In
-                  </p>
-                  <Sparkles className="h-5 w-5 text-accent animate-pulse" />
-                  <div className="h-px w-8 bg-gradient-to-l from-transparent to-accent" />
-                </div>
-                
-                <div className="grid grid-cols-4 gap-4">
-                  {Object.entries(timeLeft).map(([unit, value]) => (
-                    <div key={unit} className="group">
-                      <div className="bg-gradient-to-br from-background to-blush/20 rounded-2xl p-6 shadow-soft border border-accent/10 hover:border-accent/30 transition-all hover:shadow-elegant hover:-translate-y-1">
-                        <div className="text-4xl lg:text-5xl font-heading font-bold bg-gradient-to-br from-accent to-rose-gold bg-clip-text text-transparent group-hover:scale-110 transition-transform">
-                          {value.toString().padStart(2, '0')}
-                        </div>
-                        <div className="text-xs uppercase text-muted-foreground mt-2 font-semibold tracking-wider font-body">
-                          {unit}
-                        </div>
-                      </div>
+          {/* Right Column - Featured Products Grid */}
+          <div className="grid grid-cols-2 gap-6 animate-fade-in">
+            {featuredProducts.map((product) => (
+              <Link
+                key={product.id}
+                to={`/product/${product.id}`}
+                className="group"
+              >
+                <div className="bg-white/95 backdrop-blur-xl rounded-2xl overflow-hidden shadow-elegant border border-rose-gold/20 hover:border-rose-gold/40 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                  {/* Product Image */}
+                  <div className="relative aspect-[3/4] overflow-hidden">
+                    <img 
+                      src={product.images[0]} 
+                      alt={product.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                    
+                    {/* Badges */}
+                    <div className="absolute top-3 right-3 flex flex-col gap-1">
+                      {product.isNew && (
+                        <Badge className="bg-gradient-to-r from-rose-gold to-blush-dark text-white text-xs py-1 px-2 shadow-lg border-0">
+                          NEW
+                        </Badge>
+                      )}
+                      {product.isSale && (
+                        <Badge className="bg-elegant-dark text-white text-xs py-1 px-2 shadow-lg">
+                          {product.discount}%
+                        </Badge>
+                      )}
                     </div>
-                  ))}
-                </div>
 
-                <div className="pt-4">
-                  <p className="text-sm text-muted-foreground font-body">
-                    Don't miss the biggest sale of the year!
-                  </p>
-                </div>
-              </div>
-            </div>
+                    {/* Wishlist */}
+                    <button 
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                      }}
+                      className="absolute top-3 left-3 p-2 bg-white/90 backdrop-blur-sm rounded-full hover:bg-white transition-all shadow-lg hover:scale-110"
+                    >
+                      <Heart className="h-3 w-3 text-rose-gold" />
+                    </button>
 
-            {/* Quick Links */}
-            <div className="grid grid-cols-2 gap-4">
-              <Link to="/shop?category=Bridal" className="group bg-card/80 backdrop-blur-sm rounded-xl p-4 shadow-soft border border-accent/10 hover:border-accent/30 transition-all hover:shadow-elegant">
-                <p className="text-xs text-muted-foreground font-semibold uppercase mb-1">Trending</p>
-                <p className="text-sm font-bold text-foreground group-hover:text-accent transition-colors">Bridal Collection</p>
+                    {/* Quick View Overlay */}
+                    <div className="absolute inset-0 bg-elegant-dark/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <ShoppingBag className="h-8 w-8 text-white" />
+                    </div>
+                  </div>
+
+                  {/* Product Info */}
+                  <div className="p-4 space-y-2">
+                    <Badge className="bg-blush-dark/20 text-rose-gold border-rose-gold/30 text-[10px] px-2 py-0.5">
+                      {product.designer}
+                    </Badge>
+                    
+                    <h3 className="text-sm font-heading font-bold text-elegant-dark line-clamp-2 group-hover:text-rose-gold transition-colors leading-tight">
+                      {product.name}
+                    </h3>
+
+                    {/* 5-Star Rating */}
+                    <div className="flex items-center gap-0.5">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="h-2.5 w-2.5 fill-rose-gold text-rose-gold" />
+                      ))}
+                    </div>
+
+                    {/* Price */}
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-lg font-heading font-bold text-black">
+                        ${product.price}
+                      </span>
+                      {product.originalPrice > product.price && (
+                        <span className="text-xs text-black/50 line-through">
+                          ${product.originalPrice}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
               </Link>
-              <Link to="/shop?sale=true" className="group bg-gradient-to-br from-accent/10 to-rose-gold/10 backdrop-blur-sm rounded-xl p-4 shadow-soft border border-accent/20 hover:border-accent/40 transition-all hover:shadow-elegant">
-                <p className="text-xs text-accent font-semibold uppercase mb-1">Hot Deals</p>
-                <p className="text-sm font-bold text-foreground group-hover:text-accent transition-colors">Sale Items</p>
-              </Link>
-            </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Trust Indicators Marquee - Positioned at bottom */}
+      <div className="absolute bottom-0 left-0 right-0 w-screen z-20" style={{ marginLeft: 'calc(-50vw + 50%)' }}>
+        <div className="relative overflow-hidden backdrop-blur-2xl bg-gradient-to-br from-blush/40 via-rose-gold/20 to-white/40 py-3 border-y border-rose-gold/40">
+            {/* Marquee content */}
+            <div className="flex animate-marquee whitespace-nowrap">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="flex items-center text-sm font-semibold text-elegant-dark">
+                  <span className="mx-8 flex items-center gap-2">
+                    <Shield className="h-4 w-4 text-rose-gold" />
+                    100% Authentic Designer Pieces
+                  </span>
+                  <span className="mx-8 flex items-center gap-2">
+                    <Sparkles className="h-4 w-4 text-rose-gold" />
+                    Premium Quality Fabrics
+                  </span>
+                  <span className="mx-8 flex items-center gap-2">
+                    <Star className="h-4 w-4 text-rose-gold" />
+                    Curated by Top Designers
+                  </span>
+                  <span className="mx-8 flex items-center gap-2">
+                    <TrendingUp className="h-4 w-4 text-rose-gold" />
+                    Fast Shipping to Texas
+                  </span>
+                  <span className="mx-8 flex items-center gap-2">
+                    <Award className="h-4 w-4 text-rose-gold" />
+                    Award-Winning Collections
+                  </span>
+                  <span className="mx-8 flex items-center gap-2">
+                    <Heart className="h-4 w-4 text-rose-gold" />
+                    Handpicked with Love
+                  </span>
+                </div>
+              ))}
           </div>
         </div>
       </div>
