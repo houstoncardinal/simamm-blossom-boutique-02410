@@ -52,9 +52,9 @@ const Hero = () => {
           {/* Left Column - Store Branding & CTA */}
           <div className="space-y-8 animate-fade-in">
             {/* Premium Badge */}
-            <div className="inline-flex items-center gap-2 bg-white/95 backdrop-blur-md border-2 border-rose-gold rounded-full px-6 py-3 shadow-lg">
-              <Award className="h-4 w-4 text-rose-gold" />
-              <span className="text-sm font-bold text-elegant-dark tracking-wide">AWARD-WINNING DESIGNER COLLECTIONS</span>
+            <div className="inline-flex items-center gap-2 bg-white/95 backdrop-blur-md border-2 border-rose-gold rounded-full px-4 sm:px-6 py-2 sm:py-3 shadow-lg">
+              <Award className="h-3 w-3 sm:h-4 sm:w-4 text-rose-gold flex-shrink-0" />
+              <span className="text-[10px] sm:text-sm font-bold text-elegant-dark tracking-wide whitespace-nowrap">AWARD-WINNING DESIGNER COLLECTIONS</span>
             </div>
 
             {/* Main Heading */}
@@ -128,9 +128,25 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Right Column - Featured Products Grid */}
-          <div className="grid grid-cols-2 gap-6 animate-fade-in">
-            {featuredProducts.map((product) => (
+          {/* Right Column - Featured Products */}
+          <div className="space-y-6 animate-fade-in">
+            {/* Featured Products Header */}
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl md:text-3xl font-heading font-bold text-elegant-dark">
+                Featured Products
+              </h2>
+              <Link 
+                to="/shop" 
+                className="text-sm font-semibold text-rose-gold hover:text-rose-gold/80 transition-colors flex items-center gap-1 group"
+              >
+                View More
+                <span className="group-hover:translate-x-1 transition-transform">→</span>
+              </Link>
+            </div>
+
+            {/* Products Grid */}
+            <div className="grid grid-cols-2 gap-4 sm:gap-6">
+              {featuredProducts.map((product) => (
               <Link
                 key={product.id}
                 to={`/product/${product.id}`}
@@ -207,7 +223,8 @@ const Hero = () => {
                   </div>
                 </div>
               </Link>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
