@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { ShoppingBag, Filter, ArrowUpDown } from 'lucide-react';
+import { ShoppingBag, Filter, ArrowUpDown, Eye } from 'lucide-react';
+import { useCart } from '@/contexts/CartContext';
+import ProductQuickView from '@/components/ProductQuickView';
 import {
   Select,
   SelectContent,
@@ -89,6 +91,8 @@ const ProductShowcase = () => {
   const [selectedDesigner, setSelectedDesigner] = useState('All');
   const [sortBy, setSortBy] = useState('popularity');
   const [selectedColors, setSelectedColors] = useState<Record<number, string>>({});
+  const [quickViewProduct, setQuickViewProduct] = useState<typeof products[0] | null>(null);
+  const { addItem } = useCart();
 
   const filteredProducts = products.filter(product => {
     const categoryMatch = selectedCategory === 'All' || product.category === selectedCategory;
@@ -256,10 +260,35 @@ const ProductShowcase = () => {
                   </span>
                 </div>
                 
-                <Button variant="luxury" className="w-full group-hover:shadow-glow transition-all hover:scale-105">
-                  <ShoppingBag className="h-4 w-4" />
-                  Add to Cart
-                </Button>
+                <div className="flex gap-2">
+                  <Button 
+                    variant="luxury" 
+                    className="flex-1 group-hover:shadow-glow transition-all hover:scale-105"
+                    onClick={() => setQuickViewProduct(product)}
+                  >
+                    <Eye className="h-4 w-4" />
+                    View Details
+                  </Button>
+                  <Button
+                    variant="hero"
+                    size="icon"
+                    className="group-hover:shadow-glow transition-all hover:scale-105 hover:rotate-12"
+                    onClick={() => {
+                      addItem({
+                        id: product.id,
+                        name: product.name,
+                        price: product.price,
+                        originalPrice: product.originalPrice,
+                        designer: product.designer,
+                        category: product.category,
+                        color: selectedColors[product.id] || product.colors[0],
+                        size: 'M', // Default size
+                      });
+                    }}
+                  >
+                    <ShoppingBag className="h-4 w-4" />
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           ))}
@@ -273,6 +302,12 @@ const ProductShowcase = () => {
             </p>
           </div>
         )}
+
+        {/* Quick View Modal */}
+        <ProductQuickView 
+          product={quickViewProduct} 
+          onClose={() => setQuickViewProduct(null)} 
+        />
       </div>
     </section>
   );

@@ -3,11 +3,12 @@ import { Menu, X, Phone, Facebook, ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import floralWreath from '@/assets/floral-wreath.png';
+import { useCart } from '@/contexts/CartContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [cartCount, setCartCount] = useState(0);
+  const { itemCount, setIsCartOpen } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -66,11 +67,14 @@ const Navbar = () => {
                 Facebook Live
               </a>
             </Button>
-            <button className="relative p-2 hover:scale-110 transition-transform">
-              <ShoppingCart className="h-5 w-5 text-accent" />
-              {cartCount > 0 && (
+            <button 
+              onClick={() => setIsCartOpen(true)}
+              className="relative p-2 hover:scale-110 transition-transform group"
+            >
+              <ShoppingCart className="h-5 w-5 text-accent group-hover:rotate-12 transition-transform" />
+              {itemCount > 0 && (
                 <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center bg-accent text-accent-foreground text-xs animate-bounce">
-                  {cartCount}
+                  {itemCount}
                 </Badge>
               )}
             </button>

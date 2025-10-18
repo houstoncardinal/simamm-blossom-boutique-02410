@@ -138,4 +138,42 @@ All colors MUST be HSL.
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-5px); }
   }
+
+  /* Cart & Checkout Animations */
+  @keyframes confetti-fall {
+    0% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(200px) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes confetti-burst {
+    0% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -50%) translate(var(--tx, 0), var(--ty, 200px)) scale(0) rotate(var(--r, 360deg));
+      opacity: 0;
+    }
+  }
+
+  .animate-slide-in-right {
+    animation: slide-in-right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes slide-in-right {
+    0% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
 }
