@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* SIMAMM Luxury Boutique Theme */
+    --background: 35 35% 98%;
+    --foreground: 0 0% 13%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 13%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 13%;
+
+    /* Blush Pink Primary */
+    --primary: 8 63% 90%;
+    --primary-foreground: 0 0% 13%;
+
+    /* Soft Beige Secondary */
+    --secondary: 35 35% 93%;
+    --secondary-foreground: 0 0% 13%;
+
+    --muted: 35 25% 88%;
+    --muted-foreground: 0 0% 40%;
+
+    /* Rose Gold Accent */
+    --accent: 20 38% 61%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 20 15% 90%;
+    --input: 20 15% 90%;
+    --ring: 20 38% 61%;
+
+    --radius: 0.75rem;
+
+    /* Custom Luxury Colors */
+    --rose-gold: 20 38% 61%;
+    --rose-gold-light: 20 48% 75%;
+    --blush: 8 63% 90%;
+    --blush-light: 8 70% 95%;
+    --elegant-dark: 0 0% 13%;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(8 63% 90% / 0.9), hsl(20 38% 61% / 0.7));
+    --gradient-card: linear-gradient(to bottom, hsl(0 0% 100%), hsl(35 35% 98%));
+    --gradient-overlay: linear-gradient(180deg, hsl(8 63% 90% / 0.1), hsl(20 38% 61% / 0.15));
+
+    /* Shadows */
+    --shadow-elegant: 0 10px 40px -10px hsl(20 38% 61% / 0.25);
+    --shadow-soft: 0 4px 20px -2px hsl(20 20% 50% / 0.15);
+    --shadow-glow: 0 0 30px hsl(20 38% 61% / 0.3);
+
+    /* Transitions */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  .dark {
+    /* Keep light theme for luxury boutique feel */
+    --background: 35 35% 98%;
+    --foreground: 0 0% 13%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+@layer components {
+  .floral-divider {
+    @apply relative my-8 flex items-center justify-center;
+  }
+  
+  .floral-divider::before,
+  .floral-divider::after {
+    @apply h-[1px] flex-1 bg-gradient-to-r;
+    content: '';
+  }
+  
+  .floral-divider::before {
+    @apply from-transparent via-accent to-transparent;
+  }
+  
+  .floral-divider::after {
+    @apply from-transparent via-accent to-transparent;
+  }
+
+  .elegant-link {
+    @apply relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[2px] after:bottom-0 after:left-0 after:bg-accent after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
+  }
+
+  .hover-lift {
+    @apply transition-all duration-300 hover:scale-105 hover:shadow-lg;
+  }
+
+  .sparkle-effect {
+    animation: sparkle 2s ease-in-out infinite;
+  }
+
+  @keyframes sparkle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.05); }
+  }
+
+  .animate-pulse-slow {
+    animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse-slow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.85; }
+  }
+
+  .animate-bounce-slow {
+    animation: bounce-slow 3s infinite;
+  }
+
+  @keyframes bounce-slow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+}
