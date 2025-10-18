@@ -119,7 +119,7 @@ const Hero = () => {
           <div className="space-y-6 animate-fade-in">
             {/* Featured Products Header */}
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-heading font-bold text-elegant-dark md:text-sm">
+              <h2 className="font-heading font-bold text-elegant-dark md:text-sm text-sm">
                 Featured Products
               </h2>
               <Link to="/shop" className="text-sm font-semibold text-rose-gold hover:text-rose-gold/80 transition-colors flex items-center gap-1 group">
