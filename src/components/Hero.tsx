@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, Calendar, MapPin, Gift } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import heroBackground from '@/assets/hero-floral-bg.jpg';
 
 const FloatingPetals = () => {
@@ -56,72 +57,152 @@ const Hero = () => {
   }, []);
 
   return (
-    <section id="home" className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-fixed"
+        className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: `url(${heroBackground})` }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-blush/80 via-blush-light/70 to-background/90" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blush/90 via-background/85 to-rose-gold/20" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(216,164,143,0.1),transparent)]" />
       </div>
       
       <FloatingPetals />
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 py-20 text-center">
-        <div className="max-w-4xl mx-auto space-y-8 animate-fade-in-up">
-          {/* Main Heading */}
-          <div className="inline-block">
-            <h1 className="text-5xl md:text-7xl font-heading font-bold text-elegant-dark mb-4 sparkle-effect">
-              <Sparkles className="inline-block h-12 w-12 text-accent animate-float mb-2" />
-              {' '}GRAND EVENT SALE{' '}
-              <Sparkles className="inline-block h-12 w-12 text-accent animate-float mb-2" />
-            </h1>
-            <div className="floral-divider">
-              <span className="px-4 text-xl font-heading text-accent">✦</span>
+      <div className="relative z-10 container mx-auto px-4 py-12 lg:py-20">
+        <div className="grid lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
+          {/* Left Column - Main Content */}
+          <div className="space-y-8 animate-fade-in text-center lg:text-left">
+            {/* Premium Badge */}
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-accent/10 to-rose-gold/10 border border-accent/20 rounded-full px-6 py-3 backdrop-blur-sm">
+              <Sparkles className="h-4 w-4 text-accent" />
+              <span className="text-sm font-semibold text-accent tracking-wide">LUXURY PAKISTANI DESIGNER WEAR</span>
             </div>
-          </div>
 
-          <p className="text-2xl md:text-3xl font-body text-elegant-dark/80 font-medium">
-            Don't Miss It – Best Deals in Town
-          </p>
+            {/* Main Heading */}
+            <div className="space-y-4">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-elegant-dark leading-tight">
+                Grand Event
+                <span className="block bg-gradient-to-r from-accent via-rose-gold to-accent bg-clip-text text-transparent">
+                  Sale 2025
+                </span>
+              </h1>
+              <div className="flex items-center justify-center lg:justify-start gap-3">
+                <div className="h-px w-12 bg-gradient-to-r from-transparent to-accent" />
+                <Sparkles className="h-6 w-6 text-accent animate-pulse" />
+                <div className="h-px w-12 bg-gradient-to-l from-transparent to-accent" />
+              </div>
+            </div>
 
-          <p className="text-lg md:text-xl text-elegant-dark/70 font-body max-w-2xl mx-auto">
-            Luxury Pakistani Designer Wear in Texas
-          </p>
-
-          {/* Countdown Timer */}
-          <div className="bg-background/80 backdrop-blur-sm rounded-2xl p-8 shadow-elegant max-w-2xl mx-auto">
-            <p className="text-sm uppercase tracking-wider text-accent font-semibold mb-4 font-body">
-              Event Starts In
+            <p className="text-xl md:text-2xl font-body text-elegant-dark/80 max-w-xl mx-auto lg:mx-0">
+              Experience luxury at unbeatable prices. Exclusive collections, limited time only.
             </p>
-            <div className="grid grid-cols-4 gap-4">
-              {Object.entries(timeLeft).map(([unit, value]) => (
-                <div key={unit} className="bg-card rounded-lg p-4 shadow-soft">
-                  <div className="text-3xl md:text-4xl font-heading font-bold text-accent">
-                    {value.toString().padStart(2, '0')}
+
+            {/* Event Info Cards */}
+            <div className="grid sm:grid-cols-2 gap-4 max-w-xl mx-auto lg:mx-0">
+              <div className="bg-card/80 backdrop-blur-sm rounded-xl p-4 shadow-soft border border-accent/10 hover:border-accent/30 transition-all hover:shadow-elegant group">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-accent/20 to-rose-gold/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Calendar className="h-5 w-5 text-accent" />
                   </div>
-                  <div className="text-xs uppercase text-muted-foreground mt-1 font-body">
-                    {unit}
+                  <div className="text-left">
+                    <p className="text-xs text-muted-foreground font-semibold uppercase">Event Date</p>
+                    <p className="text-sm font-bold text-foreground">Oct 18-19, 2025</p>
                   </div>
                 </div>
-              ))}
+              </div>
+              <div className="bg-card/80 backdrop-blur-sm rounded-xl p-4 shadow-soft border border-accent/10 hover:border-accent/30 transition-all hover:shadow-elegant group">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-accent/20 to-rose-gold/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <MapPin className="h-5 w-5 text-accent" />
+                  </div>
+                  <div className="text-left">
+                    <p className="text-xs text-muted-foreground font-semibold uppercase">Location</p>
+                    <p className="text-sm font-bold text-foreground">Murphy, Texas</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Gift Promo */}
+            <div className="bg-gradient-to-r from-accent/10 via-rose-gold/10 to-accent/10 border border-accent/20 rounded-2xl p-4 backdrop-blur-sm">
+              <div className="flex items-center justify-center lg:justify-start gap-3">
+                <Gift className="h-6 w-6 text-accent animate-bounce" />
+                <p className="text-sm font-semibold text-foreground">
+                  Free gift with every <span className="text-accent">$50</span> purchase
+                </p>
+              </div>
+            </div>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+              <Button variant="hero" size="lg" asChild className="group relative overflow-hidden w-full sm:w-auto">
+                <Link to="/shop">
+                  <span className="relative z-10 flex items-center gap-2">
+                    Shop Collection
+                    <Sparkles className="h-4 w-4 group-hover:rotate-12 transition-transform" />
+                  </span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-rose-gold to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </Link>
+              </Button>
+              <Button variant="outline" size="lg" asChild className="hover:bg-accent/10 hover:border-accent transition-all group w-full sm:w-auto border-accent/30">
+                <a href="#event" className="flex items-center gap-2">
+                  Event Details
+                  <Calendar className="h-4 w-4 group-hover:scale-110 transition-transform" />
+                </a>
+              </Button>
             </div>
           </div>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <Button variant="hero" size="lg" asChild className="group relative overflow-hidden">
-              <a href="#products">
-                <span className="relative z-10">Shop the Collection</span>
-                <span className="absolute inset-0 bg-gradient-to-r from-rose-gold-light to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </a>
-            </Button>
-            <Button variant="outline" size="lg" asChild className="hover:bg-accent/10 hover:border-accent transition-all">
-              <a href="#event">
-                Event Details
-              </a>
-            </Button>
+          {/* Right Column - Countdown Timer */}
+          <div className="space-y-6 animate-fade-in lg:scale-110">
+            <div className="bg-card/90 backdrop-blur-md rounded-3xl p-8 lg:p-10 shadow-elegant border border-accent/20">
+              <div className="text-center space-y-6">
+                <div className="inline-flex items-center justify-center gap-2 mb-4">
+                  <div className="h-px w-8 bg-gradient-to-r from-transparent to-accent" />
+                  <Sparkles className="h-5 w-5 text-accent animate-pulse" />
+                  <p className="text-sm uppercase tracking-widest text-accent font-bold font-body">
+                    Event Starts In
+                  </p>
+                  <Sparkles className="h-5 w-5 text-accent animate-pulse" />
+                  <div className="h-px w-8 bg-gradient-to-l from-transparent to-accent" />
+                </div>
+                
+                <div className="grid grid-cols-4 gap-4">
+                  {Object.entries(timeLeft).map(([unit, value]) => (
+                    <div key={unit} className="group">
+                      <div className="bg-gradient-to-br from-background to-blush/20 rounded-2xl p-6 shadow-soft border border-accent/10 hover:border-accent/30 transition-all hover:shadow-elegant hover:-translate-y-1">
+                        <div className="text-4xl lg:text-5xl font-heading font-bold bg-gradient-to-br from-accent to-rose-gold bg-clip-text text-transparent group-hover:scale-110 transition-transform">
+                          {value.toString().padStart(2, '0')}
+                        </div>
+                        <div className="text-xs uppercase text-muted-foreground mt-2 font-semibold tracking-wider font-body">
+                          {unit}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="pt-4">
+                  <p className="text-sm text-muted-foreground font-body">
+                    Don't miss the biggest sale of the year!
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Links */}
+            <div className="grid grid-cols-2 gap-4">
+              <Link to="/shop?category=Bridal" className="group bg-card/80 backdrop-blur-sm rounded-xl p-4 shadow-soft border border-accent/10 hover:border-accent/30 transition-all hover:shadow-elegant">
+                <p className="text-xs text-muted-foreground font-semibold uppercase mb-1">Trending</p>
+                <p className="text-sm font-bold text-foreground group-hover:text-accent transition-colors">Bridal Collection</p>
+              </Link>
+              <Link to="/shop?sale=true" className="group bg-gradient-to-br from-accent/10 to-rose-gold/10 backdrop-blur-sm rounded-xl p-4 shadow-soft border border-accent/20 hover:border-accent/40 transition-all hover:shadow-elegant">
+                <p className="text-xs text-accent font-semibold uppercase mb-1">Hot Deals</p>
+                <p className="text-sm font-bold text-foreground group-hover:text-accent transition-colors">Sale Items</p>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
