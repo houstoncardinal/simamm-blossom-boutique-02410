@@ -8,8 +8,41 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Slider } from '@/components/ui/slider';
-import { ShoppingBag, Heart, SlidersHorizontal, X } from 'lucide-react';
+import { ShoppingBag, Heart, SlidersHorizontal } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import lawnPink from '@/assets/products/lawn-pink.jpg';
+import formalRed from '@/assets/products/formal-red.jpg';
+import partyGold from '@/assets/products/party-gold.jpg';
+import winterVelvet from '@/assets/products/winter-velvet.jpg';
+import bridalRed from '@/assets/products/bridal-red.jpg';
+import lawnMint from '@/assets/products/lawn-mint.jpg';
+import formalWhite from '@/assets/products/formal-white.jpg';
+import partyPink from '@/assets/products/party-pink.jpg';
+import lawnBlue from '@/assets/products/lawn-blue.jpg';
+import winterEmerald from '@/assets/products/winter-emerald.jpg';
+
+const productImages: Record<number, string> = {
+  1: lawnPink,
+  2: formalRed,
+  3: lawnMint,
+  4: winterVelvet,
+  5: formalWhite,
+  6: winterEmerald,
+  7: partyGold,
+  8: partyPink,
+  9: partyGold,
+  10: winterVelvet,
+  11: winterEmerald,
+  12: lawnBlue,
+  13: lawnMint,
+  14: bridalRed,
+  15: lawnPink,
+  16: formalWhite,
+  17: partyGold,
+  18: winterEmerald,
+  19: lawnBlue,
+  20: partyPink,
+};
 
 const Shop = () => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -190,10 +223,12 @@ const Shop = () => {
                   >
                     <div className="bg-card rounded-2xl overflow-hidden shadow-soft hover:shadow-elegant transition-all duration-300 hover:scale-105">
                       {/* Image */}
-                      <div className="relative aspect-[3/4] bg-gradient-to-br from-blush-light to-accent/30 overflow-hidden">
-                        <div className="absolute inset-0 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                          <ShoppingBag className="h-32 w-32 text-accent/40" />
-                        </div>
+                      <div className="relative aspect-[3/4] overflow-hidden">
+                        <img 
+                          src={productImages[product.id] || lawnPink} 
+                          alt={product.name}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
 
                         {/* Badges */}
                         <div className="absolute top-4 right-4 flex flex-col gap-2">

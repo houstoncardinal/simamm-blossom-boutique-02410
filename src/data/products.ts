@@ -1,3 +1,14 @@
+import lawnPink from '@/assets/products/lawn-pink.jpg';
+import formalRed from '@/assets/products/formal-red.jpg';
+import partyGold from '@/assets/products/party-gold.jpg';
+import winterVelvet from '@/assets/products/winter-velvet.jpg';
+import bridalRed from '@/assets/products/bridal-red.jpg';
+import lawnMint from '@/assets/products/lawn-mint.jpg';
+import formalWhite from '@/assets/products/formal-white.jpg';
+import partyPink from '@/assets/products/party-pink.jpg';
+import lawnBlue from '@/assets/products/lawn-blue.jpg';
+import winterEmerald from '@/assets/products/winter-emerald.jpg';
+
 export interface Product {
   id: number;
   name: string;
@@ -23,6 +34,39 @@ export interface Product {
   popularity: number;
 }
 
+const productImages: Record<number, string> = {
+  1: lawnPink,
+  2: formalRed,
+  3: lawnMint,
+  4: winterVelvet,
+  5: formalWhite,
+  6: winterEmerald,
+  7: partyGold,
+  8: partyPink,
+  9: partyGold,
+  10: winterVelvet,
+  11: winterEmerald,
+  12: lawnBlue,
+  13: lawnMint,
+  14: bridalRed,
+  15: lawnPink,
+  16: formalWhite,
+  17: partyGold,
+  18: winterEmerald,
+  19: lawnBlue,
+  20: partyPink,
+  21: partyGold,
+  22: winterEmerald,
+  23: lawnBlue,
+  24: winterVelvet,
+  25: partyPink,
+  26: lawnMint,
+  27: bridalRed,
+  28: formalWhite,
+  29: lawnPink,
+  30: winterVelvet,
+};
+
 export const products: Product[] = [
   // Lawn Collection
   {
@@ -34,7 +78,7 @@ export const products: Product[] = [
     price: 89,
     originalPrice: 125,
     discount: 29,
-    images: ["/placeholder.svg", "/placeholder.svg", "/placeholder.svg"],
+    images: [productImages[1], productImages[1], productImages[1]],
     colors: ["#FFB6C1", "#F5DEB3", "#E6E6FA"],
     sizes: ["S", "M", "L", "XL"],
     description: "Exquisite summer lawn set featuring delicate floral embroidery and premium breathable fabric. Perfect for warm weather elegance.",

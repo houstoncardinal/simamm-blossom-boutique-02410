@@ -11,6 +11,39 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Separator } from '@/components/ui/separator';
 import { useCart } from '@/contexts/CartContext';
 import { toast } from 'sonner';
+import lawnPink from '@/assets/products/lawn-pink.jpg';
+import formalRed from '@/assets/products/formal-red.jpg';
+import partyGold from '@/assets/products/party-gold.jpg';
+import winterVelvet from '@/assets/products/winter-velvet.jpg';
+import bridalRed from '@/assets/products/bridal-red.jpg';
+import lawnMint from '@/assets/products/lawn-mint.jpg';
+import formalWhite from '@/assets/products/formal-white.jpg';
+import partyPink from '@/assets/products/party-pink.jpg';
+import lawnBlue from '@/assets/products/lawn-blue.jpg';
+import winterEmerald from '@/assets/products/winter-emerald.jpg';
+
+const productImages: Record<number, string> = {
+  1: lawnPink,
+  2: formalRed,
+  3: lawnMint,
+  4: winterVelvet,
+  5: formalWhite,
+  6: winterEmerald,
+  7: partyGold,
+  8: partyPink,
+  9: partyGold,
+  10: winterVelvet,
+  11: winterEmerald,
+  12: lawnBlue,
+  13: lawnMint,
+  14: bridalRed,
+  15: lawnPink,
+  16: formalWhite,
+  17: partyGold,
+  18: winterEmerald,
+  19: lawnBlue,
+  20: partyPink,
+};
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -92,10 +125,12 @@ const ProductDetail = () => {
             {/* Images */}
             <div className="space-y-4">
               {/* Main Image */}
-              <div className="relative aspect-[3/4] bg-gradient-to-br from-blush-light to-accent/30 rounded-2xl overflow-hidden shadow-elegant">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <ShoppingBag className="h-48 w-48 text-accent/40" />
-                </div>
+              <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-elegant">
+                <img 
+                  src={productImages[product.id] || lawnPink} 
+                  alt={product.name}
+                  className="w-full h-full object-cover"
+                />
                 
                 {/* Badges */}
                 {(product.isSale || product.isNew) && (
@@ -114,19 +149,21 @@ const ProductDetail = () => {
 
               {/* Thumbnail Gallery */}
               <div className="grid grid-cols-4 gap-4">
-                {product.images.map((_, idx) => (
+                {[1, 2, 3].map((idx) => (
                   <button
                     key={idx}
                     onClick={() => setSelectedImage(idx)}
-                    className={`aspect-square bg-gradient-to-br from-blush-light to-accent/30 rounded-xl overflow-hidden transition-all ${
+                    className={`aspect-square rounded-xl overflow-hidden transition-all ${
                       selectedImage === idx
                         ? 'ring-4 ring-accent shadow-glow'
                         : 'opacity-60 hover:opacity-100'
                     }`}
                   >
-                    <div className="w-full h-full flex items-center justify-center">
-                      <ShoppingBag className="h-12 w-12 text-accent/40" />
-                    </div>
+                    <img 
+                      src={productImages[product.id] || lawnPink} 
+                      alt={`${product.name} view ${idx}`}
+                      className="w-full h-full object-cover"
+                    />
                   </button>
                 ))}
               </div>
@@ -414,10 +451,12 @@ const ProductDetail = () => {
                     className="group"
                   >
                     <div className="bg-card rounded-2xl overflow-hidden shadow-soft hover:shadow-elegant transition-all duration-300 hover:scale-105">
-                      <div className="relative aspect-[3/4] bg-gradient-to-br from-blush-light to-accent/30">
-                        <div className="absolute inset-0 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                          <ShoppingBag className="h-24 w-24 text-accent/40" />
-                        </div>
+                      <div className="relative aspect-[3/4] overflow-hidden">
+                        <img 
+                          src={productImages[relatedProduct.id] || lawnPink} 
+                          alt={relatedProduct.name}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
                       </div>
                       <div className="p-4 space-y-2">
                         <Badge variant="outline" className="text-xs">
